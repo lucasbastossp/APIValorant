@@ -10,21 +10,25 @@ print(f'Seu nick é {nick}')
 #api = resultado do arquivo
 
 #http://riot.api.com/+'api'
-<<<<<<< HEAD
+
 arq = open('config.txt')
 linhas = arq.readlines()
 for linha in linhas:
     print(linha)
-=======
 
->>>>>>> refs/remotes/origin/main
-api_token = 'RGAPI-310934e4-9f2c-4911-ae2b-8f8dd57c8d50'
-url_nicks = 'https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'+nick+'?api_key='+api_token
+url_nicks = 'https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'+nick+'?api_key='+linha
 
 r = requests.get(url_nicks)
 todos = json.loads(r.content)
-<<<<<<< HEAD
+
+
+
+##### Fazer ficar perguntando o nick ate o usuario informar que deseja sair
+##### e sempre exibir apos o usuario digitiar seu nick
+######## Guardar accountID nick e lvl
+######## exibir somente o Nick e LVL
+
+
+print(type(todos))
+
 print(todos)
-=======
-print(todos)
->>>>>>> refs/remotes/origin/main
