@@ -1,1 +1,4 @@
-nick = str(print('Digite seu Nick: '))
+nick = str(input('Digite seu Nick: '))
+print(f'Seu nick é {nick}')
+
+
