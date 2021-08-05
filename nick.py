@@ -1,1 +1,1 @@
-print('Digite seu Nick: ')
+nick = str(print('Digite seu Nick: '))
