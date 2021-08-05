@@ -21,6 +21,14 @@ url_nicks = 'https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'+n
 r = requests.get(url_nicks)
 todos = json.loads(r.content)
 
+
+
+##### Fazer ficar perguntando o nick ate o usuario informar que deseja sair
+##### e sempre exibir apos o usuario digitiar seu nick
+######## Guardar accountID nick e lvl
+######## exibir somente o Nick e LVL
+
+
 print(type(todos))
 
 print(todos)
