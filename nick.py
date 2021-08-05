@@ -1,2 +1,2 @@
-nick = str(print('Digite seu Nick: '))
-print('O nome digitado foi: ' + nick)
+nick = str(input('Digite seu Nick: '))
+print(f'O nome digitado foi: {nick}')
