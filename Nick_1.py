@@ -22,17 +22,17 @@ todos = json.loads(r.content)
 #todos1 = json.loads(s.content)
 
 #print(f'a {todos1}')
-print('Seu nick é ' + todos['name'])
+#print('Seu nick é ' + todos['name'])
 name = todos['name']
 lvl = todos['summonerLevel']
 account_id = todos['accountId']
-print('Seu level é ' + str(todos['summonerLevel']))
+#print('Seu level é ' + str(todos['summonerLevel']))
 #print(type(todos))
 
 #print(todos)
-print('nome é '+name)
-print('lvl é '+str(lvl))
-print('Id da conta é '+account_id)
+print('Nick é: '+name)
+print('Seu lvl é: '+str(lvl))
+print('Id da conta é: '+account_id)
 url_matchs = 'https://br1.api.riotgames.com/lol/match/v4/matchlists/by-account/'+account_id+'?api_key='+linha
 r_match = requests.get(url_matchs)
 todos_match = json.loads(r_match.content)
