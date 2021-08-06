@@ -1,20 +1,38 @@
 import json
 import requests
 from urllib.request import urlopen
+import mysql.connector
 
 print(20*'----')
 
-arq = open('config.txt')
-linhas = arq.readlines()
-for linha in linhas:
-    print(linha)
 
+
+
+######## Criação da connect com banco
+con = mysql.connector.connect(host='localhost',database='loldb',user='root',password='6471Bernssl!')
+if con.is_connected():
+    db_info = con.get_server_info()
+    print("Conectado ao servidor MySQL versão ",db_info)
+    cursor = con.cursor()
+    cursor.execute("select database();")
+    linha = cursor.fetchone()
+    print("Conectado ao banco de dados ",linha)
+if con.is_connected():
+    cursor.close()
+    con.close()
+    print("Conexão ao MySQL foi encerrada")
 
 
 nick = str(input('Digite seu nick: '))
 
 
 url_nicks = 'https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'+nick+'?api_key='+linha
+
+####### Criação do arquivo de config
+arq = open('config.txt')
+linhas = arq.readlines()
+for linha in linhas:
+    print(linha)
 
 r = requests.get(url_nicks)
 todos = json.loads(r.content)
@@ -25,6 +43,9 @@ print('Seu level é ' + str(todos['summonerLevel']))
 
 #print(todos)
 
+ # Insert some data into table
+cursor.execute("INSERT INTO players (nickPlayer, accountId,nickLvl) VALUES (%s, %s);", (str(todos['name']),str(todos['accountId']),str(todos['summonerLevel'])))
+print("Inserted",cursor.rowcount,"row(s) of data.")
 
 contador = 0
 
