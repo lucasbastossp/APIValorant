@@ -57,9 +57,5 @@ while (contador < 999):
 url_matchs = 'https://br1.api.riotgames.com/lol/match/v4/matchlists/by-account/'+account_id+'?api_key='+linha
 r_match = requests.get(url_matchs)
 todos_match = json.loads(r_match.content)
-#print(todos_match)
-#print(type(todos_match))
-'''for v, v1 in todos_match.items():
-    print(f'{v} = {v1}')'''
-for v in todos_match['totalGames']:
-    print(str({v}))
+print(todos_match.get('totalGames'))
+
