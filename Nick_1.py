@@ -33,6 +33,10 @@ print('Seu level é ' + str(todos['summonerLevel']))
 print('nome é '+name)
 print('lvl é '+str(lvl))
 print('Id da conta é '+account_id)
+url_matchs = 'https://br1.api.riotgames.com/lol/match/v4/matchlists/by-account/'+account_id+'?api_key='+linha
+r_match = requests.get(url_matchs)
+todos_match = json.loads(r_match.content)
+print('O total de jogos é: {}'.format(+todos_match.get('totalGames')))
 
 contador = 0
 
@@ -48,18 +52,17 @@ while (contador < 999):
         todos = json.loads(r.content)
         print('Seu nick é ' + todos['name'])
         print('Seu level é ' + str(todos['summonerLevel']))
+        url_matchs = 'https://br1.api.riotgames.com/lol/match/v4/matchlists/by-account/'+account_id+'?api_key='+linha
+        r_match = requests.get(url_matchs)
+        todos_match = json.loads(r_match.content)
+        print('O total de jogos é: {}'.format(+todos_match.get('totalGames')))
         contador = 1
         
     else:
         print('Programa encerrado!')
         break
 
-url_matchs = 'https://br1.api.riotgames.com/lol/match/v4/matchlists/by-account/'+account_id+'?api_key='+linha
+'''url_matchs = 'https://br1.api.riotgames.com/lol/match/v4/matchlists/by-account/'+account_id+'?api_key='+linha
 r_match = requests.get(url_matchs)
 todos_match = json.loads(r_match.content)
-#print(todos_match)
-#print(type(todos_match))
-'''for v, v1 in todos_match.items():
-    print(f'{v} = {v1}')'''
-for v in todos_match['totalGames']:
-    print(str({v}))
+print(todos_match.get('totalGames'))'''
