@@ -35,14 +35,11 @@ while (contador < 999):
         url_nicks = 'https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'+nick+'?api_key='+linha
         r = requests.get(url_nicks)
         todos = json.loads(r.content)
-        print(todos)
+        print('Seu nick é ' + todos['name'])
+        print('Seu level é ' + str(todos['summonerLevel']))
         contador = 1
         
     else:
         print('Programa encerrado!')
         break
-
-
-
-
 
