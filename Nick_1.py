@@ -8,20 +8,31 @@ linhas = arq.readlines()
 for linha in linhas:
     print(linha)
 
+
 nick = str(input('Digite seu nick: '))
 
 
 url_nicks = 'https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'+nick+'?api_key='+linha
 
-r = requests.get(url_nicks)
-todos = json.loads(r.content)
+#url_matchs = 'https://br1.api.riotgames.com/lol/match/v4/matchlists/by-account/'+account_id+'?api_key='+linha1
 
+r = requests.get(url_nicks)
+#s = requests.get(url_nicks1)
+todos = json.loads(r.content)
+#todos1 = json.loads(s.content)
+
+#print(f'a {todos1}')
 print('Seu nick é ' + todos['name'])
+name = todos['name']
+lvl = todos['summonerLevel']
+account_id = todos['accountId']
 print('Seu level é ' + str(todos['summonerLevel']))
 #print(type(todos))
 
 #print(todos)
-
+print('nome é '+name)
+print('lvl é '+str(lvl))
+print('Id da conta é '+account_id)
 
 contador = 0
 
@@ -43,3 +54,12 @@ while (contador < 999):
         print('Programa encerrado!')
         break
 
+url_matchs = 'https://br1.api.riotgames.com/lol/match/v4/matchlists/by-account/'+account_id+'?api_key='+linha
+r_match = requests.get(url_matchs)
+todos_match = json.loads(r_match.content)
+#print(todos_match)
+#print(type(todos_match))
+'''for v, v1 in todos_match.items():
+    print(f'{v} = {v1}')'''
+for v in todos_match['totalGames']:
+    print(str({v}))
