@@ -128,4 +128,4 @@ while (contador < 999):
         break
 
 
-buscarHerois()
+#buscarHerois()
