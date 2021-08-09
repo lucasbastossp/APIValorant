@@ -13,6 +13,7 @@ nick = str(input('Digite seu nick: '))
 
 
 url_nicks = 'https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'+nick+'?api_key='+linha
+print(url_nicks)
 
 #url_matchs = 'https://br1.api.riotgames.com/lol/match/v4/matchlists/by-account/'+account_id+'?api_key='+linha1
 
@@ -21,7 +22,7 @@ r = requests.get(url_nicks)
 todos = json.loads(r.content)
 #todos1 = json.loads(s.content)
 
-#print(f'a {todos1}')
+print(todos)
 print('Seu nick é ' + todos['name'])
 name = todos['name']
 lvl = todos['summonerLevel']
