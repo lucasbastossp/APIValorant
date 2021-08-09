@@ -22,13 +22,8 @@ r = requests.get(url_nicks)
 todos = json.loads(r.content)
 #todos1 = json.loads(s.content)
 
-<<<<<<< HEAD
 print(todos)
 print('Seu nick é ' + todos['name'])
-=======
-#print(f'a {todos1}')
-#print('Seu nick é ' + todos['name'])
->>>>>>> refs/remotes/origin/main
 name = todos['name']
 lvl = todos['summonerLevel']
 account_id = todos['accountId']

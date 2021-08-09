@@ -82,9 +82,10 @@ def buscarDadosPlayer(nick):
     print('Seu level é ' + str(todos['summonerLevel']))
     lvl = str(todos['summonerLevel'])
     acc_id = str(todos['accountId'])
+    puuid = str(todos['puuid'])
     data_busca_dados_player = datetime.today()
     
-    return name,lvl,acc_id,data_busca_dados_player
+    return name,lvl,acc_id,data_busca_dados_player,puuid
 
 def buscarHerois():
     champions = 'http://ddragon.leagueoflegends.com/cdn/11.15.1/data/en_US/champion.json'
@@ -106,9 +107,15 @@ def buscarHerois():
         gravarHeroisBase(idheroi,nomeHeroi,titulo,img)
         
 
+
+
+
+
+
+
 while (contador < 999):
     nick = str(input('Digite o nick que deseja obter informações? '))
-    name,lvl,acc_id,data_busca_dados_player = buscarDadosPlayer(nick)
+    name,lvl,acc_id,data_busca_dados_player,puuid = buscarDadosPlayer(nick)
     gravarUsuarioBase(nick,acc_id,lvl,data_busca_dados_player)
 
     resultado = str(input('Deseja buscar informações sobre outro player? (S/N) ')).strip() .upper()[0]
@@ -128,4 +135,55 @@ while (contador < 999):
         break
 
 
+
+
+def buscarGameID(puuid):
+    inicio = 0
+    fim = 100
+    url_buscaGameID = 'https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/'+puuid+'/ids?type=ranked&start='+str(inicio)+'&count='+str(fim)+'&api_key='+str(linha)
+    r = requests.get(url_buscaGameID)
+    todos = json.loads(r.content)
+    print(todos)
+
+
+def buscarDadosGame():
+    url_buscaDadosGame = 'https://americas.api.riotgames.com/lol/match/v5/matches/BR1_2315962146?api_key=RGAPI-688ed697-d75d-4685-81c0-77ef7b4d2899'
+    r = requests.get(url_buscaDadosGame)
+    todos = json.loads(r.content)
+    matchId = todos['metadata']['matchId']
+    player1 = todos['metadata']['participants'][0]
+    player2 = todos['metadata']['participants'][1]
+    player3 = todos['metadata']['participants'][2]
+    player4 = todos['metadata']['participants'][3]
+    player5 = todos['metadata']['participants'][4]
+    player6 = todos['metadata']['participants'][5]
+    player7 = todos['metadata']['participants'][6]
+    player8 = todos['metadata']['participants'][7]
+    player9 = todos['metadata']['participants'][8]
+    player10 = todos['metadata']['participants'][9]
+
+    return      matchId,player1,player2,player3,player4,player5,player6,player7,player8,player9,player10 
+    
+ 
+
+def gravarMatchesBase(matchId,player1,player2,player3,player4,player5,player6,player7,player8,player9,player10):
+    con = mysql.connector.connect(host='localhost',database='loldb',user='root',password='6471Bernssl!')
+    if con.is_connected():
+        db_info = con.get_server_info()
+        print("Conectado ao servidor MySQL versão ",db_info)
+        cursor = con.cursor()
+        cursor.execute("INSERT INTO matches (IdmatcheApi, player1, player2, player3, player4, player5, player6, player7, player8, player9, player10) VALUES (%s, %s, %s, %s, %s,%s, %s, %s, %s, %s, %s);" , 
+        (matchId,player1,player2,player3,player4,player5,player6,player7,player8,player9,player10))
+        con.commit()
+        linha = cursor.fetchone()
+        print("Dados da Partida Salva ",linha)
+    if con.is_connected():
+        cursor.close()
+        con.close()
+        print("Conexão ao MySQL foi encerrada")
+
 #buscarHerois()
+#BR1_2315962146
+buscarGameID(puuid)
+matchId,player1,player2,player3,player4,player5,player6,player7,player8,player9,player10 = buscarDadosGame()
+gravarMatchesBase(matchId,player1,player2,player3,player4,player5,player6,player7,player8,player9,player10)
